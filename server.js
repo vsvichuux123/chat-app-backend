@@ -4,7 +4,13 @@ const { Server } = require("socket.io");
 const cors = require("cors");
 require("dotenv").config(); // Load .env variables
 
-const app = express();
+const app = express();    // <-- Create express app first
+
+// Add this route **after** creating app
+app.get('/', (req, res) => {
+  res.send('Chat app backend is running');
+});
+
 app.use(cors());
 app.use(express.json());
 
@@ -37,3 +43,4 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+module.exports = { app, server, io }; // Export for testing or further use
